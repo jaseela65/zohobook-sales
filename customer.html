@@ -85,11 +85,11 @@
                        </select> 
                 </div>
                 <div class="col-sm-12 col-md-3 col-lg-3" >
-                    <input  type="text" class="form-control bg-light text-dark  " id="fName"  placeholder="first name" required >
+                    <input  type="text" class="form-control bg-light text-dark  " name="fName" id="fName"  placeholder="first name" required >
 
                 </div>
                 <div class="col-sm-12 col-md-3 col-lg-3" >
-                    <input type="text" class="form-control bg-light text-dark " id="lName"  placeholder="last name"  oninput="generateFullName()" required >
+                    <input type="text" class="form-control bg-light text-dark "  name="lName" id="lName"  placeholder="last name"  oninput="generateFullName()" required >
 
                 </div>
             </div>
@@ -474,13 +474,13 @@
                 <div class="form-group row mt-4">
                     <label class="col-sm-12 col-md-3 col-lg-3 col-form-label" > Mobile </label>                    
                     <div class=" col-sm-12 col-md-6 col-lg-6">
-                        <input  type="tel" class="form-control bg-light text-dark" placeholder="1234567890" pattern="[0-9]{10}" id="bpon" name="bpon" >      
+                        <input  type="tel" class="form-control bg-light text-dark" placeholder="0000000000" pattern="[0-9]{10}" id="bpon" name="bpon" >      
                     </div>
                 </div>
                 <div class="form-group row mt-4">
                     <label class="col-sm-12 col-md-3 col-lg-3 col-form-label" > Fax </label>                    
                     <div class=" col-sm-12 col-md-6 col-lg-6">
-                        <input  type="number" class="form-control bg-light text-dark" placeholder="1234567" id="bfx" name="bfx">      
+                        <input  type="number" class="form-control bg-light text-dark" placeholder="0000000" id="bfx" name="bfx">      
                     </div>
                 </div> 
                 
@@ -540,14 +540,14 @@
                 <div class="form-group row mt-4">
                     <label class="col-sm-12 col-md-3 col-lg-3 col-form-label" >Mobile </label>                    
                     <div class=" col-sm-12 col-md-6 col-lg-6">
-                        <input  type="tel" class="form-control bg-light text-dark" placeholder="1234567890" pattern="[0-9]{10}" style="color: white;" id="spn" name="lna">  
+                        <input  type="tel" class="form-control bg-light text-dark" placeholder="0000000000" pattern="[0-9]{10}" style="color: white;" id="spn" name="lna">  
                         <label for="" id="sphone_label"></label>    
                     </div>
                 </div>
                 <div class="form-group row mt-4">
                     <label class="col-sm-12 col-md-3 col-lg-3 col-form-label" > Fax </label>                    
                     <div class=" col-sm-12 col-md-6 col-lg-6">
-                        <input  type="tel" class="form-control bg-light text-dark" placeholder="1234567" pattern="[0-9]{7}" style="color: white;" id="sfx" name="bfx"> 
+                        <input  type="tel" class="form-control bg-light text-dark" placeholder="0000000" pattern="[0-9]{7}" style="color: white;" id="sfx" name="bfx"> 
                         <label for="" id="sfax_label"></label>     
                     </div>
                 </div>
@@ -570,7 +570,7 @@
                                   <th>Email Address</th>
                                   <th >Work Phone <br><label for="" id="twph_label"></label></th>
                                   <th >Mobile <br><label for="" id="tlabel"></label>    </th>
-                                  <th >Skype Name/No</th>
+                                  <th >Skype </th>
                                   <th >Designation</th>
                                   <th >Department</th>
                                 </tr>
@@ -585,9 +585,9 @@
                                     <td><input type="text" name="ftname[]" ></td>
                                     <td><input type="text" name="ltname[]" ></td>
                                     <td><input type="text" name="mail[]" ></td>
-                                    <td><input type="tel" placeholder="1234-1234567" name="bworkpn[]" ></td>
+                                    <td><input type="tel" placeholder="0000-0000000" name="bworkpn[]" ></td>
                                     <td><input type="tel" name="bmobile[]" ></td>
-                                    <td><input type="number" name="bskype[]" ></td>
+                                    <td><input type="text" name="bskype[]" ></td>
                                     <td><input type="text" name="bdesg[]" ></td>
                                     <td><input type="text" name="bdept[]" ></td>
                                   </tr>
@@ -795,7 +795,7 @@
 
     $('document').ready(function () {
         $('.add_another').click(function () {
-          $("#tbl").append('<tr><td><select name="sal[]" id="PLACE" class="bg-light" style="width:8rem;height:2.4rem;border: none;color: black;"><option value="Mr" selected>Mr.</option><option value=""Mrs">Mrs.</option><option value="Ms">Ms.</option><option value="Miss">Miss.</option><option value="Dr">Dr.</option></select>  </td><td><input type="text" name="ftname[]" class="bg-light" style="width:8rem;border: none;color: black;" class="txtbox" value="" /></td><td><input type="text" name="ltname[]" class="bg-light" style="width:8rem;border: none;color: black;" class="txtbox" value="" /></td><td><input type="email" name="mail[]" class="bg-light" style="width:8rem;border: none;color: black;" class="txtbox" value="" /></td><td><input type="tel" pattern="[0-9]{7} name="bworkpn[]" class="bg-light" style="width:8rem;border: none;color: black;" class="txtbox" value="" /></td><td><input type="tel" pattern="[0-9]{10}"  name="bmobile[]" class="bg-light" style="width:8rem;border: none;color: black;" class="txtbox" value="" /></td><td><input type="number"  name="bskype[]" class="bg-light" style="width:8rem;border: none;color: black;" class="txtbox" value="" /></td><td><input type="text" name="bdesg[]" class="bg-light" style="width:8rem;border: none;color: black;" class="txtbox" value="" /></td><td><input type="text" name="bdept[]" class="bg-light" style="width:8rem;border: none;color: black;" class="txtbox" value="" /></td></tr>');
+          $("#tbl").append('<tr><td><select name="sal[]" id="PLACE" class="bg-light" style="width:8rem;height:2.4rem;border: none;color: black;"><option value="Mr" selected>Mr.</option><option value=""Mrs">Mrs.</option><option value="Ms">Ms.</option><option value="Miss">Miss.</option><option value="Dr">Dr.</option></select>  </td><td><input type="text" name="ftname[]" class="bg-light" style="width:8rem;border: none;color: black;" class="txtbox" value="" /></td><td><input type="text" name="ltname[]" class="bg-light" style="width:8rem;border: none;color: black;" class="txtbox" value="" /></td><td><input type="email" name="mail[]" class="bg-light" style="width:8rem;border: none;color: black;" class="txtbox" value="" /></td><td><input type="tel" pattern="[0-9]{7} name="bworkpn[]" class="bg-light" style="width:8rem;border: none;color: black;" class="txtbox" value="" /></td><td><input type="tel" pattern="[0-9]{10}"  name="bmobile[]" class="bg-light" style="width:8rem;border: none;color: black;" class="txtbox" value="" /></td><td><input type="text"  name="bskype[]" class="bg-light" style="width:8rem;border: none;color: black;" class="txtbox" value="" /></td><td><input type="text" name="bdesg[]" class="bg-light" style="width:8rem;border: none;color: black;" class="txtbox" value="" /></td><td><input type="text" name="bdept[]" class="bg-light" style="width:8rem;border: none;color: black;" class="txtbox" value="" /></td></tr>');
         });
       })
 

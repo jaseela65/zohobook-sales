@@ -1,0 +1,191 @@
+def entr_custmrA(request):
+    if request.user.is_authenticated:
+        if request.method=='POST':
+            cr_data=customer()
+            print('hii')
+            print(cr_data)
+            type=request.POST.get('type')
+            fName=request.POST['fName']
+            lName=request.POST['lName']
+            txtFullName=request.POST['txtFullName']
+            cpname=request.POST['cpname']
+           
+            email=request.POST.get('email')
+            wphone=request.POST.get('wphone')
+            mobile=request.POST.get('mobile')
+            skname=request.POST.get('skname')
+            desg=request.POST.get('desg')      
+            dept=request.POST.get('dept')
+            wbsite=request.POST.get('wbsite')
+
+            gstt=request.POST.get('v_gsttype')
+            
+            x=request.POST.get('v_gsttype')
+            if x=="Unregistered Business-not Registered under GST":
+                pan=request.POST.get('pan_number')
+                gstin="null"
+            else:
+                gstin=request.POST.get('v_gstin')
+                pan=request.POST.get('pan_number')
+           
+            posply=request.POST.get('posply')
+            tax1=request.POST.get('tax1')
+            crncy=request.POST.get('crncy')
+            obal=request.POST.get('obal')
+
+            select=request.POST.get('pterms')
+            pterms=payment_terms.objects.get(id=select)
+            pterms=request.POST.get('pterms')
+
+            plst=request.POST.get('plst')
+            plang=request.POST.get('plang')
+            fbk=request.POST.get('fbk')
+            twtr=request.POST.get('twtr')
+        
+            atn=request.POST.get('atn')
+            ctry=request.POST.get('ctry')
+            
+            addrs=request.POST.get('addrs')
+            addrs1=request.POST.get('addrs1')
+            bct=request.POST.get('bct')
+            bst=request.POST.get('bst')
+            bzip=request.POST.get('bzip')
+            bpon=request.POST.get('bpon')
+            bfx=request.POST.get('bfx')
+            remark=request.POST.get('remark')
+            u = User.objects.get(id = request.user.id)
+
+          
+            ctmr=customer(customerName=txtFullName,
+                          Fname=fName,Lname=lName,
+                          customerType=type,
+                        companyName=cpname,
+                        customerEmail=email,
+                        customerWorkPhone=wphone,
+                         customerMobile=mobile,skype=skname,
+                         designation=desg,department=dept,
+                           website=wbsite
+                           ,GSTTreatment=gstt,
+                           GSTIN=gstin,pan_no=pan,
+                           placeofsupply=posply, Taxpreference=tax1,
+                             currency=crncy,OpeningBalance=obal,
+                             PaymentTerms=pterms,
+                                PriceList=plst,PortalLanguage=plang,
+                                Facebook=fbk,
+                                Twitter=twtr,
+                                 Attention=atn,country=ctry,Address1=addrs,Address2=addrs1,
+                                  city=bct,state=bst,zipcode=bzip,phone1=bpon,
+                                   fax=bfx,
+                                     remark=remark,user=u )
+            ctmr.save() 
+ 
+            #  ...........................adding multiple rows of table to model  ........................................................       
+            CPsalutation =request.POST.getlist('sal[]')
+            Firstname=request.POST.getlist('ftname[]')
+            Lastname =request.POST.getlist('ltname[]')
+            CPemail =request.POST.getlist('mail[]')
+            CPphone=request.POST.getlist('bworkpn[]')
+            CPmobile=request.POST.getlist('bmobile[]')
+            CPskype=request.POST.getlist('bskype[]')
+            CPdesignation=request.POST.getlist('bdesg[]')
+            CPdepartment=request.POST.getlist('bdept[]') 
+            
+            cdata=customer.objects.get(id=ctmr.id)
+            Customr=cdata 
+            
+            if len(CPsalutation)==len(Firstname)==len(Lastname)==len(CPemail)==len(CPphone)==len(CPmobile)==len(CPskype)==len(CPdesignation)==len(CPdepartment):
+                mapped2=zip(CPsalutation,Firstname,Lastname,CPemail,CPphone,CPmobile,CPskype,CPdesignation,CPdepartment)
+                mapped2=list(mapped2)
+                print(mapped2)
+                for ele in mapped2:
+                    created = customer_contact_person_table.objects.get_or_create(CPsalutation=ele[0],Firstname=ele[1],Lastname=ele[2],CPemail=ele[3],
+                            CPphone=ele[4],CPmobile=ele[5],CPskype=ele[6],CPdesignation=ele[7],CPdepartment=ele[8],user=u,Customr=Customr)
+            
+            return redirect("view_customr")
+        return render(request,'view_customer.html')
+
+
+
+   
+def editEnter_customer(request,id):
+        if request.method=='POST':
+            edit=customer.objects.get(id=id)
+            edit.customerType=request.POST['type']
+            edit.Fname=request.POST['first_name']
+            edit.Lname=request.POST['last_name']
+            edit.customerName=request.POST['txtFullName']
+            edit.companyName=request.POST['cpname']
+
+            edit.customerEmail=request.POST['email']
+            edit.customerWorkPhone=request.POST['wphone']
+            edit.customerMobile=request.POST['mobile']
+            edit.skype=request.POST['skname']
+            edit.designation=request.POST['desg']
+            edit.department=request.POST['dept']
+            edit.website=request.POST['wbsite']
+            edit.GSTTreatment=request.POST['gst']
+            if edit.GSTTreatment=="Unregistered Business-not Registered under GST":
+                edit.pan_no=request.POST['pan_number']
+                edit.GSTIN="null"
+            else:
+                edit.GSTIN=request.POST['gst_number']
+                edit.pan_no=request.POST['pan_number']
+            
+            edit.placeofsupply=request.POST['posply']
+            edit.Taxpreference=request.POST['tax1']
+            
+            edit.PaymentTerms=request.POST['pterms']
+            
+            edit.PriceList=request.POST['plst']
+            edit.PortalLanguage=request.POST['plang']
+            edit.Facebook=request.POST['fbk']
+            edit.Twitter=request.POST['twtr']
+            edit.Attention=request.POST['atn']
+            edit.country=request.POST['ctry']
+
+            edit.Address1=request.POST['addrs']
+            edit.Address2=request.POST['addrs1']
+            edit.city=request.POST['bct']
+            edit.state=request.POST['bst']
+            edit.zipcode=request.POST['bzip']
+            edit.phone1=request.POST['bpon']
+            edit.fax=request.POST['bfx']
+            edit.remark=request.POST['remark']
+            
+           
+            edit.save()
+
+            
+            # .......................contact_person_table................ deleting existing entries and inserting  ...............
+
+            pdata=customer_contact_person_table.objects.filter(Customr=edit)
+            CPsalutation =request.POST.getlist('sal[]')
+            Firstname =request.POST.getlist('ftname[]')
+            Lastname =request.POST.getlist('ltname[]')
+            CPemail =request.POST.getlist('mail[]')
+            CPphone =request.POST.getlist('bworkpn[]')
+            CPmobile =request.POST.getlist('bmobile[]')
+            CPskype =request.POST.getlist('bskype[]')
+            CPdesignation =request.POST.getlist('bdesg[]')
+            CPdepartment =request.POST.getlist('bdept[]') 
+
+            cdata=customer.objects.get(id=edit.id)
+            Customr=cdata 
+            
+            user_id=request.user.id
+            u=User.objects.get(id=user_id)
+
+            # .....  deleting existing rows......
+            pdata.delete()
+            if len(CPsalutation)==len(Firstname)==len(Lastname)==len(CPemail)==len(CPphone)==len(CPmobile)==len(CPskype)==len(CPdesignation)==len(CPdepartment):
+                mapped2=zip(CPsalutation,Firstname,Lastname,CPemail,CPphone,CPmobile,CPskype,CPdesignation,CPdepartment)
+                mapped2=list(mapped2)
+                print(mapped2)
+                for ele in mapped2:
+                    created = customer_contact_person_table.objects.get_or_create(CPsalutation=ele[0],Firstname=ele[1],Lastname=ele[2],CPemail=ele[3],
+                            CPphone=ele[4],CPmobile=ele[5],CPskype=ele[6],CPdesignation=ele[7],CPdepartment=ele[8],user=u,Customr=Customr)
+            
+
+            return redirect('view_customr')
+
+        return render(request,'view_customer.html')

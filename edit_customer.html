@@ -82,11 +82,11 @@
                  </select> 
           </div>
           <div class="col-sm-12 col-md-3 col-lg-3">
-              <input  type="text" class="form-control bg-light text-dark" id="fname" name="first_name" placeholder="first name">
+              <input  type="text" class="form-control bg-light text-dark" id="fname" name="first_name" placeholder="first name" value="{{cu.Fname}}">
 
           </div>
           <div class="col-sm-12 col-md-3 col-lg-3">
-              <input type="text" class="form-control bg-light text-dark" id="lname" name="last_name"  placeholder="last name">
+              <input type="text" class="form-control bg-light text-dark" id="lname" name="last_name"  placeholder="last name" value="{{cu.Lname}}">
 
           </div>
       </div>
@@ -131,8 +131,9 @@
                </div>
                <div class=" col-sm-12 col-md-3 col-lg-3">
                   <input  type="tel" pattern="[0-9]{10}" class="form-control bg-light text-dark" id="lname" name="mobile" placeholder="Mobile" value="{{cu.customerMobile}}">   
-                  <label for="" id="mobile"></label>
-
+                  <div class="toggle111"
+                  style=" color: rgb(230, 171, 45);font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size:22px;">
+                  Add more details </div>
               </div>
               
 
@@ -140,7 +141,7 @@
            </div>
            
 
-           <fieldset1 class="more details">
+           <fieldset1 class="more details" style="display: none;">
 
 
               <div class="form-group row mt-4">
@@ -222,7 +223,7 @@
                     {% if cu.GSTTreatment == "Unregistered Business-not Registered under GST" %}
                     
                       <select name="gstt" id="GSTT" class="form-control bg-light text-dark" onclick="gstPan_function()">
-                         <option value="{{ vdata.gst_treatment }}">{{ cu.GSTTreatment }}</option>
+                         <option value="{{ cu.GSTTreatment }}">{{ cu.GSTTreatment }}</option>
 
                           <option value="Select a Gst Treatment" >Select a Gst Treatment</option>
                           <option value="Registered Business-Regular Business that is registered under GST">Registered Business-Regular Business that is registered under GST</option>
@@ -236,7 +237,7 @@
                       
                       <select name="gst" id="GSTT" class="form-control bg-light text-dark" onclick="gstPan_function1()">
                         
-                        <option value="{{ vdata.gst_treatment }}">{{ cu.GSTTreatment }}</option>
+                        <option value="{{ cu.GSTTreatment }}">{{ cu.GSTTreatment }}</option>
 
                          <option value="Select a Gst Treatment" >Select a Gst Treatment</option>
                          <option value="Registered Business-Regular Business that is registered under GST">Registered Business-Regular Business that is registered under GST</option>
@@ -256,7 +257,7 @@
                       <label class="col-sm-12 col-md-3 col-lg-3 col-form-label"  style="color:rgb(214, 75, 75) ;"> GSTIN/UIN*</label>
                        
                       <div class=" col-sm-12 col-md-3 col-lg-3">
-                          <input type="text" class="form-control bg-light text-dark" name="gst_number" id="gst_input"  value="{{ cu.gst_number }}" onmouseout="gst_check()"> 
+                          <input type="text" class="form-control bg-light text-dark" name="gst_number" id="gst_input"  value="{{ cu.GSTIN }}" onmouseout="gst_check()"> 
                           <label id="gst_label"></label>     
   
                       </div>
@@ -271,7 +272,7 @@
                       <label class="col-sm-12 col-md-3 col-lg-3 col-form-label" > PAN</label>
                        
                       <div class=" col-sm-12 col-md-3 col-lg-3">
-                          <input type="text" class="form-control bg-light text-dark" id="pan_input" name="pan_number" onmouseout="pan_check()" value="{{ cu.pan_number }}">      
+                          <input type="text" class="form-control bg-light text-dark" id="pan_input" name="pan_number" onmouseout="pan_check()" value="{{ cu.pan_no }}">      
                           <label id="pan_label"></label>     
 
                       </div>
@@ -497,7 +498,7 @@
                     <div class="form-group row mt-4">
                         <label class="col-sm-12 col-md-3 col-lg-3 col-form-label" >Mobile </label>                    
                         <div class=" col-sm-12 col-md-6 col-lg-6">
-                            <input  type="tel" pattern="[0-9]{10}" class="form-control bg-light text-dark" id="bpn" name="bpon" value="{{cu.phone1}}">      
+                            <input  type="tel" pattern="[0-9]{10}" class="form-control bg-light text-dark" id="bpn" placeholder="0000000000" name="bpon" value="{{cu.phone1}}">      
                             <label for="" id="bphone_label"></label>      
 
                         </div>
@@ -505,7 +506,7 @@
                     <div class="form-group row mt-4">
                         <label class="col-sm-12 col-md-3 col-lg-3 col-form-label" > Fax </label>                    
                         <div class=" col-sm-12 col-md-6 col-lg-6">
-                            <input  type="tel" class="form-control bg-light text-dark" id="bbfx" name="bfx" value="{{cu.fax}}">      
+                            <input  type="tel" class="form-control bg-light text-dark" id="bbfx" placeholder="0000000" name="bfx" value="{{cu.fax}}">      
                             <label for="" id="fax_label"></label> 
 
                         </div>
@@ -565,7 +566,7 @@
                     <div class="form-group row mt-4">
                         <label class="col-sm-12 col-md-3 col-lg-3 col-form-label" > Mobile </label>                    
                         <div class=" col-sm-12 col-md-6 col-lg-6">
-                            <input  type="tel" pattern="[0-9]{10}" class="form-control bg-light text-dark" placeholder="1234567890" id="spn" name="lna"> 
+                            <input  type="tel" pattern="[0-9]{10}" class="form-control bg-light text-dark" placeholder="0000000000" id="spn" name="lna"> 
                             <label for="" id="sphone_label"></label>    
 
 
@@ -574,7 +575,7 @@
                     <div class="form-group row mt-4">
                         <label class="col-sm-12 col-md-3 col-lg-3 col-form-label" > Fax </label>                    
                         <div class=" col-sm-12 col-md-6 col-lg-6">
-                            <input  type="tel" class="form-control bg-light text-dark" placeholder="1234567" id="sfx" name="bbfx">  
+                            <input  type="tel" class="form-control bg-light text-dark" placeholder="0000000" id="sfx" name="bbfx">  
                             <label for="" id="sfax_label"></label>     
 
                         </div>
@@ -597,7 +598,7 @@
                           <th>Email Address</th>
                           <th >Work Phone <br><label for="" id="twph_label"></label></th>
                           <th >Mobile <br><label for="" id="tlabel"></label></th>
-                          <th >Skype Name/No</th>
+                          <th >Skype </th>
                           <th >Designation</th>
                           <th >Department</th>
                         </tr>
@@ -615,8 +616,8 @@
                           <td><input type="text" class="bg-light" style="width:8rem;border: none;color: black" name="ftname[]"  value="{{p.Firstname}}" ></td>
                           <td><input type="text" class="bg-light" style="width:8rem;border: none;color: black" name="ltname[]" value="{{p.Lastname}}" ></td>
                           <td><input type="text" class="bg-light" style="width:8rem;border: none;color: black" name="mail[]"  value="{{p.CPemail}}" ></td>
-                          <td><input type="tel" pattern="[0-9]{4}-[0-9]{7}" class="bg-light" style="width:8rem;border: none;color: black" name="bworkpn[]" value="{{p.CPphone}}" ></td>
-                          <td><input type="tel" pattern="[0-9]{10}" class="bg-light" style="width:8rem;border: none;color: black" name="bmobile[]" value="{{p.CPmobile}}"></td>
+                          <td><input type="tel" pattern="[0-9]{4}-[0-9]{7}" placeholder="0000-0000000" class="bg-light" style="width:8rem;border: none;color: black" name="bworkpn[]" value="{{p.CPphone}}" ></td>
+                          <td><input type="tel" pattern="[0-9]{10}" class="bg-light" placeholder="0000000000" style="width:8rem;border: none;color: black" name="bmobile[]" value="{{p.CPmobile}}"></td>
                           <td><input type="text" class="bg-light" style="width:8rem;border: none;color: black" name="bskype[]" value="{{p.CPskype}}"></td>
                           <td><input type="text" class="bg-light" style="width:8rem;border: none;color: black" name="bdesg[]" value="{{p.CPdesignation}}"></td>
                           <td><input type="text" class="bg-light" style="width:8rem;border: none;color: black" name="bdept[]" value="{{p.CPdepartment}}" ></td>
@@ -751,6 +752,16 @@ function myCopyAddressFunction() {
 
  }
 }
+$(document).ready(function () {
+        $(".toggle111").click(function (e) {
+          e.preventDefault();
+          $("fieldset1").toggle();
+        
+       
+        })
+      })
+
+
        $(document).ready(function () {
         $(".toggle2").click(function (e) {
           e.preventDefault();
@@ -797,7 +808,7 @@ function myCopyAddressFunction() {
 
       $('document').ready(function () {
         $('.add_another').click(function () {
-          $("#tbl").append('<tr><td><select name="sal[]" id="PLACE" class="bg-light" style="width:8rem;height:2.4rem;border: none;color: black;"><option value="Mr" selected>Mr.</option><option value=""Mrs">Mrs.</option><option value="Ms">Ms.</option><option value="Miss">Miss.</option><option value="Dr">Dr.</option></select>  </td><td><input type="text" name="ftname[]" class="bg-light" style="width:8rem;border: none;color: black;" class="txtbox" value="" /></td><td><input type="text" name="ltname[]" class="bg-light" style="width:8rem;border: none;color: black;" class="txtbox" value="" /></td><td><input type="email" name="mail[]" class="bg-light" style="width:8rem;border: none;color: black;" class="txtbox" value="" /></td><td><input type="tel" pattern="[0-9]{7} name="bworkpn[]" class="bg-light" style="width:8rem;border: none;color: black;" class="txtbox" value="" /></td><td><input type="tel" pattern="[0-9]{10}"  name="bmobile[]" class="bg-light" style="width:8rem;border: none;color: black;" class="txtbox" value="" /></td><td><input type="number"  name="bskype[]" class="bg-light" style="width:8rem;border: none;color: black;" class="txtbox" value="" /></td><td><input type="text" name="bdesg[]" class="bg-light" style="width:8rem;border: none;color: black;" class="txtbox" value="" /></td><td><input type="text" name="bdept[]" class="bg-light" style="width:8rem;border: none;color: black;" class="txtbox" value="" /></td></tr>');
+          $("#tbl").append('<tr><td><select name="sal[]" id="PLACE" class="bg-light" style="width:8rem;height:2.4rem;border: none;color: black;"><option value="Mr" selected>Mr.</option><option value=""Mrs">Mrs.</option><option value="Ms">Ms.</option><option value="Miss">Miss.</option><option value="Dr">Dr.</option></select>  </td><td><input type="text" name="ftname[]" class="bg-light" style="width:8rem;border: none;color: black;" class="txtbox" value="" /></td><td><input type="text" name="ltname[]" class="bg-light" style="width:8rem;border: none;color: black;" class="txtbox" value="" /></td><td><input type="email" name="mail[]" class="bg-light" style="width:8rem;border: none;color: black;" class="txtbox" value="" /></td><td><input type="tel" pattern="[0-9]{7} name="bworkpn[]" class="bg-light" style="width:8rem;border: none;color: black;" class="txtbox" value="" /></td><td><input type="tel" pattern="[0-9]{10}"  name="bmobile[]" class="bg-light" style="width:8rem;border: none;color: black;" class="txtbox" value="" /></td><td><input type="text"  name="bskype[]" class="bg-light" style="width:8rem;border: none;color: black;" class="txtbox" value="" /></td><td><input type="text" name="bdesg[]" class="bg-light" style="width:8rem;border: none;color: black;" class="txtbox" value="" /></td><td><input type="text" name="bdept[]" class="bg-light" style="width:8rem;border: none;color: black;" class="txtbox" value="" /></td></tr>');
         });
       })
 
