@@ -1,3 +1,106 @@
+date transaction number
+serch
+excel export filer cort 
+
+address details
+place of supply 
+transportation aadd+
+km 
+vehicle no
+delivery date
+table
+  
+def editEnter_customer(request,id):
+        if request.method=='POST':
+            edit=customer.objects.get(id=id)
+            edit.customerType=request.POST['type']
+            edit.Fname=request.POST['first_name']
+            edit.Lname=request.POST['last_name']
+            edit.customerName=request.POST['txtFullName']
+            edit.companyName=request.POST['cpname']
+
+            edit.customerEmail=request.POST['email']
+            edit.customerWorkPhone=request.POST['wphone']
+            edit.customerMobile=request.POST['mobile']
+            edit.skype=request.POST['skname']
+            edit.designation=request.POST['desg']
+            edit.department=request.POST['dept']
+            edit.website=request.POST['wbsite']
+            edit.GSTTreatment=request.POST['gst']
+            if edit.GSTTreatment=="Unregistered Business-not Registered under GST":
+                edit.pan_no=request.POST['pan_number']
+                edit.GSTIN=request.POST['gst_number']
+            else:
+                edit.GSTIN=request.POST['gst_number']
+                edit.pan_no=request.POST['pan_number']
+            
+            edit.placeofsupply=request.POST['posply']
+            edit.Taxpreference=request.POST['tax1']
+            
+            edit.PaymentTerms=request.POST['pterms']
+            
+            edit.PriceList=request.POST['plst']
+            edit.PortalLanguage=request.POST['plang']
+            edit.Facebook=request.POST['fbk']
+            edit.Twitter=request.POST['twtr']
+            edit.Attention=request.POST['atn']
+            edit.country=request.POST['ctry']
+
+            edit.Address1=request.POST['addrs']
+            edit.Address2=request.POST['addrs1']
+            edit.city=request.POST['bct']
+            edit.state=request.POST['bst']
+            edit.zipcode=request.POST['bzip']
+            edit.phone1=request.POST['bpon']
+            edit.fax=request.POST['bfx']
+            edit.remark=request.POST['remark']
+            
+           
+            edit.save()
+
+            
+            # .......................contact_person_table................ deleting existing entries and inserting  ...............
+
+            pdata=customer_contact_person_table.objects.filter(Customr=edit)
+            CPsalutation =request.POST.getlist('sal[]')
+            Firstname =request.POST.getlist('ftname[]')
+            Lastname =request.POST.getlist('ltname[]')
+            CPemail =request.POST.getlist('mail[]')
+            CPphone =request.POST.getlist('bworkpn[]')
+            CPmobile =request.POST.getlist('bmobile[]')
+            CPskype =request.POST.getlist('bskype[]')
+            CPdesignation =request.POST.getlist('bdesg[]')
+            CPdepartment =request.POST.getlist('bdept[]') 
+
+            cdata=customer.objects.get(id=edit.id)
+            Customr=cdata 
+            
+            user_id=request.user.id
+            u=User.objects.get(id=user_id)
+
+            # .....  deleting existing rows......
+            pdata.delete()
+            if len(CPsalutation)==len(Firstname)==len(Lastname)==len(CPemail)==len(CPphone)==len(CPmobile)==len(CPskype)==len(CPdesignation)==len(CPdepartment):
+                mapped2=zip(CPsalutation,Firstname,Lastname,CPemail,CPphone,CPmobile,CPskype,CPdesignation,CPdepartment)
+                mapped2=list(mapped2)
+                print(mapped2)
+                for ele in mapped2:
+                    created = customer_contact_person_table.objects.get_or_create(CPsalutation=ele[0],Firstname=ele[1],Lastname=ele[2],CPemail=ele[3],
+                            CPphone=ele[4],CPmobile=ele[5],CPskype=ele[6],CPdesignation=ele[7],CPdepartment=ele[8],user=u,Customr=Customr)
+            
+
+            return redirect('view_customr')
+
+        return render(request,'view_customer.html')
+
+
+
+
+
+
+
+
+
 def entr_custmrA(request):
     if request.user.is_authenticated:
         if request.method=='POST':
@@ -33,8 +136,8 @@ def entr_custmrA(request):
             crncy=request.POST.get('crncy')
             obal=request.POST.get('obal')
 
-            select=request.POST.get('pterms')
-            pterms=payment_terms.objects.get(id=select)
+            # select=request.POST.get('pterms')
+            
             pterms=request.POST.get('pterms')
 
             plst=request.POST.get('plst')
@@ -102,90 +205,4 @@ def entr_custmrA(request):
                             CPphone=ele[4],CPmobile=ele[5],CPskype=ele[6],CPdesignation=ele[7],CPdepartment=ele[8],user=u,Customr=Customr)
             
             return redirect("view_customr")
-        return render(request,'view_customer.html')
-
-
-
-   
-def editEnter_customer(request,id):
-        if request.method=='POST':
-            edit=customer.objects.get(id=id)
-            edit.customerType=request.POST['type']
-            edit.Fname=request.POST['first_name']
-            edit.Lname=request.POST['last_name']
-            edit.customerName=request.POST['txtFullName']
-            edit.companyName=request.POST['cpname']
-
-            edit.customerEmail=request.POST['email']
-            edit.customerWorkPhone=request.POST['wphone']
-            edit.customerMobile=request.POST['mobile']
-            edit.skype=request.POST['skname']
-            edit.designation=request.POST['desg']
-            edit.department=request.POST['dept']
-            edit.website=request.POST['wbsite']
-            edit.GSTTreatment=request.POST['gst']
-            if edit.GSTTreatment=="Unregistered Business-not Registered under GST":
-                edit.pan_no=request.POST['pan_number']
-                edit.GSTIN="null"
-            else:
-                edit.GSTIN=request.POST['gst_number']
-                edit.pan_no=request.POST['pan_number']
-            
-            edit.placeofsupply=request.POST['posply']
-            edit.Taxpreference=request.POST['tax1']
-            
-            edit.PaymentTerms=request.POST['pterms']
-            
-            edit.PriceList=request.POST['plst']
-            edit.PortalLanguage=request.POST['plang']
-            edit.Facebook=request.POST['fbk']
-            edit.Twitter=request.POST['twtr']
-            edit.Attention=request.POST['atn']
-            edit.country=request.POST['ctry']
-
-            edit.Address1=request.POST['addrs']
-            edit.Address2=request.POST['addrs1']
-            edit.city=request.POST['bct']
-            edit.state=request.POST['bst']
-            edit.zipcode=request.POST['bzip']
-            edit.phone1=request.POST['bpon']
-            edit.fax=request.POST['bfx']
-            edit.remark=request.POST['remark']
-            
-           
-            edit.save()
-
-            
-            # .......................contact_person_table................ deleting existing entries and inserting  ...............
-
-            pdata=customer_contact_person_table.objects.filter(Customr=edit)
-            CPsalutation =request.POST.getlist('sal[]')
-            Firstname =request.POST.getlist('ftname[]')
-            Lastname =request.POST.getlist('ltname[]')
-            CPemail =request.POST.getlist('mail[]')
-            CPphone =request.POST.getlist('bworkpn[]')
-            CPmobile =request.POST.getlist('bmobile[]')
-            CPskype =request.POST.getlist('bskype[]')
-            CPdesignation =request.POST.getlist('bdesg[]')
-            CPdepartment =request.POST.getlist('bdept[]') 
-
-            cdata=customer.objects.get(id=edit.id)
-            Customr=cdata 
-            
-            user_id=request.user.id
-            u=User.objects.get(id=user_id)
-
-            # .....  deleting existing rows......
-            pdata.delete()
-            if len(CPsalutation)==len(Firstname)==len(Lastname)==len(CPemail)==len(CPphone)==len(CPmobile)==len(CPskype)==len(CPdesignation)==len(CPdepartment):
-                mapped2=zip(CPsalutation,Firstname,Lastname,CPemail,CPphone,CPmobile,CPskype,CPdesignation,CPdepartment)
-                mapped2=list(mapped2)
-                print(mapped2)
-                for ele in mapped2:
-                    created = customer_contact_person_table.objects.get_or_create(CPsalutation=ele[0],Firstname=ele[1],Lastname=ele[2],CPemail=ele[3],
-                            CPphone=ele[4],CPmobile=ele[5],CPskype=ele[6],CPdesignation=ele[7],CPdepartment=ele[8],user=u,Customr=Customr)
-            
-
-            return redirect('view_customr')
-
         return render(request,'view_customer.html')

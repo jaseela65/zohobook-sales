@@ -82,18 +82,18 @@
                  </select> 
           </div>
           <div class="col-sm-12 col-md-3 col-lg-3">
-              <input  type="text" class="form-control bg-light text-dark" id="fname" name="first_name" placeholder="first name" value="{{cu.Fname}}">
+              <input  type="text" class="form-control bg-light text-dark" id="fname" name="first_name" placeholder="first name" value="{{cu.Fname}}" oninput="generateFullName()" required>
 
           </div>
           <div class="col-sm-12 col-md-3 col-lg-3">
-              <input type="text" class="form-control bg-light text-dark" id="lname" name="last_name"  placeholder="last name" value="{{cu.Lname}}">
+              <input type="text" class="form-control bg-light text-dark" id="lname" name="last_name"  placeholder="last name" value="{{cu.Lname}}" oninput="generateFullName()" required >
 
           </div>
       </div>
       <div class="form-group row mt-4">
         <div class="col-sm-12 col-md-3 col-lg-3 col-form-label"><label>Customer Name</label></div>
          <div class="col-sm-12 col-md-6 col-lg-6">
-             <input  type="text" class="form-control bg-light text-dark"   id="txtFullName" name="txtFullName"  value="{{cu.customerName}}" >      
+             <input  type="text" class="form-control bg-light text-dark"   id="txtFullname" name="txtFullName"  value="{{cu.customerName}}" >      
          </div>
 
 
@@ -222,7 +222,7 @@
                   <div class=" col-sm-12 col-md-3 col-lg-3">
                     {% if cu.GSTTreatment == "Unregistered Business-not Registered under GST" %}
                     
-                      <select name="gstt" id="GSTT" class="form-control bg-light text-dark" onclick="gstPan_function()">
+                      <select name="gst" id="GSTT" class="form-control bg-light text-dark" onclick="gstPan_function()">
                          <option value="{{ cu.GSTTreatment }}">{{ cu.GSTTreatment }}</option>
 
                           <option value="Select a Gst Treatment" >Select a Gst Treatment</option>
@@ -369,7 +369,7 @@
                       <option value="{{cu.PaymentTerms}} " selected>{{cu.PaymentTerms}} </option>                    
                       {% for cs in pt %}
                     
-                            <option type="text" value ='{{ cs.id }}'> {{ cs.Terms}}</option>
+                            <option type="text" value ='{{ cs.Terms }}'> {{ cs.Terms}}</option>
                             {% endfor %}
                   </select>
  <a href="" style="color: rgb(230, 171, 45);font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size:22px;" data-toggle="modal" data-target="#newpayment"><i class="fa fa-gear"></i> Configure  Trems</a>
@@ -389,7 +389,7 @@
                     <option type="text">PriceBook1 [ 70% Markdown ]</option>
                     {% for cs in prc %}
                   
-                          <option type="text" value ='{{ cs.id }}'> {{ cs.name}}</option>
+                          <option type="text" value ='{{ cs.name }}'> {{ cs.name}}</option>
                           {% endfor %}
                 </select>
                
@@ -417,8 +417,8 @@
                 <label class="col-sm-12 col-md-3 col-lg-3 col-form-label" style="color:white ;">
                     Portal Language</label>
                     <div class=" col-sm-12 col-md-3 col-lg-3">
-                        <select name="plang" id="PLACE" style="width: 100%;" class="form-control bg-light text-dark"  required>
-                            <option selected disabled value="" >{{cu.PortalLanguage}}</option>
+                        <select name="plang" id="PLACE" style="width: 100%;" class="form-control bg-light text-dark"  >
+                            <option selected  >{{cu.PortalLanguage}}</option>
                             <option value="ENGLISH">ENGLISH</option>
                           </select>
                 </div></div>   
@@ -448,7 +448,7 @@
                 <div class="col-sm-12 col-md-6 col-lg-6">
                     <div class="row">
                         <div class="col-sm-12 col-md-6 col-lg-6">
-                            <label for="">BILLING ADDRESS</label>
+                            <label for="">BILLING ADDRESS</label><br>
                         </div>
                         <div class="col"></div>
                     </div>
@@ -516,22 +516,28 @@
                 <div class="col-sm-12 col-md-6 col-lg-6">
                     <div class="row">
                         <div class="col-sm-12 col-md-6 col-lg-6">
-                            <input  type="checkbox" id="myCheckT" onclick="myCopyAddressFunction()">&nbsp;
-                            <label for="myCheck">Same as Billing Address:</label>
+                            <label for="">SHIPPING ADDRESS</label>
                         </div>
+                        <div class="col-sm-12 col-md-6 col-lg-6">
+                            <input  type="checkbox" id="myCheckT" onclick="myCopyAddressFunction()">&nbsp;
+                            <label for="myCheck">Copy Billing Address</label>
+                        </div>
+                       
                     
+
+
                     </div>
                     <div class="form-group row mt-4">
                         <label class="col-sm-12 col-md-3 col-lg-3 col-form-label" > Attention</label>                    
                         <div class=" col-sm-12 col-md-6 col-lg-6">
-                            <input  type="text" class="form-control bg-light text-dark" id="satn" name="lna" >      
+                            <input  type="text" class="form-control bg-light text-dark" id="satn" name="lna" value="{{cu.Attention}}" >      
                         </div>
                     </div>
                     <div class="form-group row mt-4">
                         <label class="col-sm-12 col-md-3 col-lg-3 col-form-label" > Country</label>                    
                         <div class=" col-sm-12 col-md-6 col-lg-6">
                             <select name="Place" id="scty" class="form-control bg-light text-dark">
-                                <option value="value" selected>India</option>
+                                <option value="{{cu.country}}" selected>{{cu.country}}</option>
                                 <option value="India" selected>India</option>
                             </select>      
                         </div>
@@ -539,34 +545,34 @@
                     <div class="form-group row mt-4">
                         <label class="col-sm-12 col-md-3 col-lg-3 col-form-label" > Address</label>                    
                         <div class=" col-sm-12 col-md-6 col-lg-6">
-                            <textarea class="form-control bg-light text-dark" style="border: none;color: rgb(7, 7, 7);" cols="26" rows="4" id="sads1" name="lna"  ></textarea>
+                            <textarea class="form-control bg-light text-dark" style="border: none;color: rgb(7, 7, 7);" cols="26" rows="4" id="sads1" name="lna" value="{{cu.Address1}}">{{cu.Address1}}</textarea>
                             <br><textarea class="form-control bg-light text-dark" style="border: none;color: rgb(7, 7, 7);" cols="26" rows="4" id="sads2"
-                            name="lna" ></textarea>
+                            name="lna" value="{{cu.Address2}}">{{cu.Address2}}</textarea>
            
                         </div>
                     </div>
                     <div class="form-group row mt-4">
                         <label class="col-sm-12 col-md-3 col-lg-3 col-form-label" > City</label>                    
                         <div class=" col-sm-12 col-md-6 col-lg-6">
-                            <input  type="text" class="form-control bg-light text-dark" id="sct" name="lna" >      
+                            <input  type="text" class="form-control bg-light text-dark" id="sct" name="lna" value="{{cu.city}}" >      
                         </div>
                     </div>
                     <div class="form-group row mt-4">
                         <label class="col-sm-12 col-md-3 col-lg-3 col-form-label" > State</label>                    
                         <div class=" col-sm-12 col-md-6 col-lg-6">
-                            <input type="text" class="form-control bg-light text-dark" id="sst" name="lna">      
+                            <input type="text" class="form-control bg-light text-dark" id="sst" name="lna" value="{{cu.state}}">      
                         </div>
                     </div>
                     <div class="form-group row mt-4">
                         <label class="col-sm-12 col-md-3 col-lg-3 col-form-label" > Zip Code </label>                    
                         <div class=" col-sm-12 col-md-6 col-lg-6">
-                            <input  type="number" class="form-control bg-light text-dark" id="szip" name="lna">      
+                            <input  type="number" class="form-control bg-light text-dark" id="szip" name="lna" value="{{cu.zipcode}}">      
                         </div>
                     </div>
                     <div class="form-group row mt-4">
                         <label class="col-sm-12 col-md-3 col-lg-3 col-form-label" > Mobile </label>                    
                         <div class=" col-sm-12 col-md-6 col-lg-6">
-                            <input  type="tel" pattern="[0-9]{10}" class="form-control bg-light text-dark" placeholder="0000000000" id="spn" name="lna"> 
+                            <input  type="tel" pattern="[0-9]{10}" class="form-control bg-light text-dark" placeholder="0000000000" id="spn" name="lna"value="{{cu.phone1}}"> 
                             <label for="" id="sphone_label"></label>    
 
 
@@ -575,7 +581,7 @@
                     <div class="form-group row mt-4">
                         <label class="col-sm-12 col-md-3 col-lg-3 col-form-label" > Fax </label>                    
                         <div class=" col-sm-12 col-md-6 col-lg-6">
-                            <input  type="tel" class="form-control bg-light text-dark" placeholder="0000000" id="sfx" name="bbfx">  
+                            <input  type="tel" class="form-control bg-light text-dark" placeholder="0000000" id="sfx" name="bbfx" value="{{cu.fax}}"> 
                             <label for="" id="sfax_label"></label>     
 
                         </div>
@@ -701,7 +707,7 @@
 <script>
         function generateFullName()
 {
-   document.getElementById('txtFullName').value = 
+   document.getElementById('txtFullname').value = 
    document.getElementById('sa').value + ''+
    document.getElementById('fname').value + ' ' + 
    document.getElementById('lname').value;
